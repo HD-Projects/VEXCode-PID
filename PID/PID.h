@@ -96,7 +96,7 @@ namespace PID {
   /**
    * DrivePID.
    *
-   * @author	ad101-lab
+   * @author ad101-lab
    * @since	v0.0.1
    * @version	v1.0.0	Tuesday, August 25th, 2020.
    */

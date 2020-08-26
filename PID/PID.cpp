@@ -11,11 +11,21 @@ using namespace vex;
  */
 
 namespace PID {
+  /**
+   * @var		object	distance
+   */
   enum distance{
     cm = 1,
     mm = 1,
     in = 1,
   };
+  /**
+   * PID.
+   *
+   * @author	ad101-lab
+   * @since	v0.0.1
+   * @version	v1.0.0	Wednesday, August 26th, 2020.
+   */
   class PID {
     //Pasted from a C++ resource
     double signnum_c(double x) {
@@ -59,6 +69,11 @@ namespace PID {
         kD = D;
       }
 
+      /**
+       * PID function that will set all Varables
+       *
+       * @var		mixed	PID(doubl
+       */
       PID(double P, double I, double D, motor PID_Motor){
         motor PIDMotor = PID_Motor;
         
@@ -68,32 +83,67 @@ namespace PID {
         kD = D;
       }
 
+      /**
+       * PID loop without Varables
+       * Still have to set motor and
+       * kP kI and kD values
+       *
+       * @var		object	PID()
+       */
       PID(){
-
         // Set Varables
         kP = 0.0;
         kI = 0.0;
         kD = 0.0;
       }
 
-      // Enable the PID
-      // Still have to call loop
+      /**
+       * Enable the PID
+       * Still have to call loop
+       *
+       * @author	ad101-lab
+       * @since	v0.0.1
+       * @version	v1.0.0	Wednesday, August 26th, 2020.
+       * @return	void
+       */
       void enable(){
         enabled = true;
       }
 
-      // Disables the PID
-      // also ends the loop
+      /**
+       * Disables the PID
+       * also ends the loop
+       *
+       * @author	ad101-lab
+       * @since	v0.0.1
+       * @version	v1.0.0	Wednesday, August 26th, 2020.
+       * @return	void
+       */
       void disable(){
         enabled = false;
       }
 
-      // Resets the Encoders
+      /**
+       * Resets the Encoders
+       *
+       * @author	ad101-lab
+       * @since	v0.0.1
+       * @version	v1.0.0	Wednesday, August 26th, 2020.
+       * @return	void
+       */
       void reset(){
         resetEncoder = true;
       }
 
-      // Move forward degrees
+      /**
+       * Move forward degrees
+       *
+       * @author	ad101-lab
+       * @since	v0.0.1
+       * @version	v1.0.0	Wednesday, August 26th, 2020.
+       * @param	double	distance	
+       * @return	void
+       */
       void move(double distance) {
         reset();
         desiredValue = distance;
@@ -101,7 +151,11 @@ namespace PID {
 
       int loop(){
 
-        // Run only when the enabled varable is true.
+        /**
+         * Run only when the enabled varable is true.
+         *
+         * @var		object	while(enabled)
+         */
         while(enabled){
 
           // Reset Drive Motors Function
@@ -144,6 +198,13 @@ namespace PID {
         return enabled ? 1 : 0;
       }
   };
+  /**
+   * DrivePID.
+   *
+   * @author	ad101-lab
+   * @since	v0.0.1
+   * @version	v1.0.0	Wednesday, August 26th, 2020.
+   */
   class DrivePID {
     //Pasted from a C++ resource
     double signnum_c(double x) {
@@ -198,12 +259,11 @@ namespace PID {
       int desiredValue;
       int desiredTurnValue;
 
-      /** 
-       * @Author: ad101-lab 
-       * @Date: 2020-08-25 13:04:26 
-       * @Desc: Drive PID Constructors
+      /**
+       * DrivePID contructor
+       *
+       * @var		mixed	DrivePID(doubl
        */
-
       DrivePID(double P, double I, double D,
       double turnP, double turnI, double turnD,
       motor_group left, motor_group right, inertial turnIntertial,
@@ -241,24 +301,54 @@ namespace PID {
         turning = turnIntertial;
       }
 
-      // Enable the PID
-      // Still have to call loop
+      /**
+       * Enable the PID
+       * Still have to call loop
+       *
+       * @author	ad101-lab
+       * @since	v0.0.1
+       * @version	v1.0.0	Wednesday, August 26th, 2020.
+       * @return	void
+       */
       void enable(){
         enabled = true;
       }
 
-      // Disables the PID
-      // also ends the loop
+      /**
+       * Disables the PID
+       * also ends the loop
+       *
+       * @author	ad101-lab
+       * @since	v0.0.1
+       * @version	v1.0.0	Wednesday, August 26th, 2020.
+       * @return	void
+       */
       void disable(){
         enabled = false;
       }
 
-      // Resets the Encoders
+      /**
+       * Resets the Encoders
+       *
+       * @author	ad101-lab
+       * @since	v0.0.1
+       * @version	v1.0.0	Wednesday, August 26th, 2020.
+       * @return	void
+       */
       void reset(){
         resetSensors = true;
       }
 
-      double move(float distance) {
+      /**
+       * move.
+       *
+       * @author	ad101-lab
+       * @since	v0.0.1
+       * @version	v1.0.0	Wednesday, August 26th, 2020.
+       * @param	float	distance	
+       * @return double distance
+       */
+      double move(double distance) {
         // Reset the drive sensors
         resetSensors = true;
 
@@ -269,7 +359,16 @@ namespace PID {
         return distance;
       }
 
-      double turn(float degrees) {
+      /**
+       * Turn degrees
+       *
+       * @author	ad101-lab
+       * @since	v0.0.1
+       * @version	v1.0.0	Wednesday, August 26th, 2020.
+       * @param	degrees	
+       * @return	mixed
+       */
+      double turn(double degrees) {
         // Reset the drive sensors
         resetSensors = true;
 
