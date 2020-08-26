@@ -2,14 +2,14 @@
 
 This is a object orinted PID loop that can be applied to drivetrains.
 
-# !!THIS IS STILL UNTESTED CODE!!
+# **THIS IS STILL UNTESTED CODE**
 
 ## How to use
 <hr>
 
 **All classes are in the PID namespace**
 
-**You Need to call loop() like vex::task pidLoop(PODOBJECT.loop);
+**You Need to call loop() like vex::task pidLoop(PODOBJECT.loop);**
 
 <hr>
 
