@@ -14,8 +14,8 @@
 using namespace vex;
 
 
-#ifndef PID_H
-#define PID_H
+#ifndef PID_OBJECT
+#define PID_OBJECT
 
 /*----------------------------------------------------------------------------*/
 /** @file     PID.h                                                           */
@@ -318,4 +318,4 @@ namespace PID {
   };
 };
 
-#endif // PID_H
+#endif
