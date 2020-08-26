@@ -9,7 +9,7 @@ This is a object orinted PID loop that can be applied to drivetrains.
 
 **All classes are in the PID namespace**
 
-**You Need to call loop() in 
+**You Need to call loop() like vex::task pidLoop(PODOBJECT.loop);
 
 <hr>
 
