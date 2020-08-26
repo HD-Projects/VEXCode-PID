@@ -1,3 +1,16 @@
+/*----------------------------------------------------------------------------*/
+/*                                                                            */
+/*    Copyright (c) HD Open Source Projects 2020, All rights reserved.        */
+/*                                                                            */
+/*    Module:     PID.h                                                       */
+/*    Author:     ad101-lab                                                   */
+/*    Created:    25 August 2020                                              */
+/*                                                                            */
+/*    Revisions:                                                              */
+/*                v0.0.1     TBD - Initial release                            */
+/*                                                                            */
+/*----------------------------------------------------------------------------*/
+
 #include "vex.h"
 #include <cmath>
 
