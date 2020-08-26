@@ -180,6 +180,141 @@ namespace PID {
        * @brief: Call this function in a vex::task instance to run the PID 
        */
       int loop();
+
+      /**
+       * @var		double	kP
+       */
+      double kP;
+
+      /**
+       * @var		double	kI
+       */
+      double kI;
+
+      /**
+       * @var		double	kD
+       */
+      double kD;
+
+      /**
+       * @var		double	turnkP
+       */
+      double turnkP;
+
+      /**
+       * @var		double	turnkI
+       */
+      double turnkI;
+
+      /**
+       * @var		double	turnkD
+       */
+      double turnkD;
+
+      /**
+       * @var		motor_group	leftMotors
+       */
+      motor_group leftMotors;
+
+      /**
+       * @var		motor_group	rightMotors
+       */
+      motor_group rightMotors;
+
+      /**
+       * @var		inertial	turning
+       */
+      inertial turning;
+
+      /**
+       * @var		bool	enabled
+       */
+      bool enabled;
+
+      /**
+       * @var		bool	resetSensors
+       */
+      bool resetSensors;
+
+
+      /**
+       * @var		int	sleepTime
+       */
+      int sleepTime;
+
+      /**
+       * @var		int	maxIntegral
+       */
+      int maxIntegral;
+
+      /**
+       * @var		int	maxTurnIntegral
+       */
+      int maxTurnIntegral;
+
+      /**
+       * @var		int	integralBound
+       */
+      int integralBound;
+
+      /**
+       * sensorValue - DesiredValue : Positional
+       *
+       * @var		int	error
+       */
+      int error;
+
+      /**
+       * Error the previous loop
+       *
+       * @var		int	prevError
+       */
+      int prevError;
+
+      /**
+       * @var		int	derivative
+       */
+      int derivative;
+
+      /**
+       * @var		int	totalError
+       */
+      int totalError;
+
+      /**
+       * sensorValue - DesiredValue : Positional
+       *
+       * @var		int	turnError
+       */
+      int turnError;
+
+      /**
+       * Error the previous loop
+       *
+       * @var		integer	turnPrevError
+       */
+      int turnPrevError = 0;
+
+      /**
+       * @var		int	turnDerivative
+       */
+      int turnDerivative;
+      /**
+       * @var		integer	turnTotalError
+       */
+      int turnTotalError = 0;
+
+      /**
+       * Initialize distance
+       *
+       * @var		int	desiredValue
+       */
+      int desiredValue;
+
+      /**
+       * @var		int	desiredTurnValue
+       */
+      int desiredTurnValue;
   };
 };
 

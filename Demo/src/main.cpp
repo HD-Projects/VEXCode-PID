@@ -24,4 +24,6 @@ int main() {
   
   test.enable();
 
+  test.loop();
+
 }
