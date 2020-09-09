@@ -5,7 +5,6 @@ This is a object orinted PID loop that can be applied to drivetrains.
 # **THIS IS STILL UNTESTED CODE**
 
 ## How to use
-<hr>
 
 **All classes are in the PID namespace**
 
