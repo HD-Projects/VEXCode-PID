@@ -157,6 +157,18 @@ namespace PID {
         this->reset();
         this->desiredValue = distance;
       }
+      
+      int staticLoop(void *loopingPID) {
+        // Check if pointer is null to remove unneeded errors
+        if (loopingPID == NULL)
+          return 0;
+
+          PID::PID *PIDobj = static_cast<PID::PID *>(loopingPID);
+
+          PIDobj->loop();
+
+          return 1;
+      }
 
       /** 
        * @Author: ad101-lab 
