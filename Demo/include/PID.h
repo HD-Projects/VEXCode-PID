@@ -69,7 +69,7 @@ public:
    * VEXCode doesn't have a defult constructor for
    * motors or motorgroups.
    */
-  vex::motor PIDMotor = motor(21);
+  vex::motor_group PIDMotor = motor_group();
 
   // Advanced
 
@@ -96,7 +96,7 @@ public:
    * @param Motor The motor_group to move when activeated
    */
   PID(double P, double I, double D, motor_group PID_Motor) {
-    vex::motor_group PIDMotor = PID_Motor;
+    PIDMotor = PID_Motor;
 
     this->kP = P;
     this->kI = I;
@@ -112,7 +112,7 @@ public:
    * @param D kD varable
    */
   PID(double P, double I, double D, motor PID_Motor) {
-    vex::motor PIDMotor = PID_Motor;
+    PIDMotor = motor_group(PID_Motor);
 
     this->kP = P;
     this->kI = I;
