@@ -13,52 +13,54 @@ double signnum_c(double x) {
 }
 
 int PID::loop() {
+  while (true) {
+    /**
+     * Run only when the enabled varable is true.
+     *
+     * @var		object	while(enabled)
+     */
+    while (enabled) {
 
-  /**
-   * Run only when the enabled varable is true.
-   *
-   * @var		object	while(enabled)
-   */
-  while (enabled) {
+      // Reset Drive Motors Function
+      if (resetEncoder) {
+        resetEncoder = false;
+      }
 
-    // Reset Drive Motors Function
-    if (resetEncoder) {
-      resetEncoder = false;
+      // Get motors positions
+      int motorPosition = PIDMotor.position(degrees);
+
+      /*
+
+      Lateral Movement PID
+
+      This is the PID Program that moves your robot back and forth
+
+      */
+
+      // Find error(Potential)
+      error = motorPosition - desiredValue;
+
+      // Derivative(Velocity)
+      derivative = error - prevError;
+
+      // Integral
+      if (abs(error) < integralBound) {
+        totalError += error;
+      } else {
+        totalError = 0;
+      }
+
+      // Cap out integral to prevent oscillate
+      totalError = abs(totalError) > maxIntegral
+                       ? signnum_c(totalError) * maxIntegral
+                       : totalError;
+
+      // Caculate Motorpower
+      double lateralMotorPower = error * kP + derivative * kD + totalError * kI;
+
+      PIDMotor.spin(forward, lateralMotorPower, voltageUnits::volt);
     }
-
-    // Get motors positions
-    int motorPosition = PIDMotor.position(degrees);
-
-    /*
-
-    Lateral Movement PID
-
-    This is the PID Program that moves your robot back and forth
-
-    */
-
-    // Find error(Potential)
-    error = motorPosition - desiredValue;
-
-    // Derivative(Velocity)
-    derivative = error - prevError;
-
-    // Integral
-    if (abs(error) < integralBound) {
-      totalError += error;
-    } else {
-      totalError = 0;
-    }
-
-    // Cap out integral to prevent oscillate
-    totalError = abs(totalError) > maxIntegral
-                     ? signnum_c(totalError) * maxIntegral
-                     : totalError;
-
-    // Caculate Motorpower
-    double lateralMotorPower = error * kP + derivative * kD + totalError * kI;
-
-    PIDMotor.spin(forward, lateralMotorPower, voltageUnits::volt);
+    task::sleep(1000);
   }
   return enabled ? 1 : 0;
 }
