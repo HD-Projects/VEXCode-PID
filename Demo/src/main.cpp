@@ -30,7 +30,7 @@ task updateScreenTask;
 task updatePidValuesTask;
 task PidLoop;
 // PID object
-PID::PID test_PID = PID::PID(1.0, 0.0, 0.0, driveMotors);
+PID::PID test_PID = PID::PID(0.0, 0.0, 0.0, driveMotors);
 
 // Function to run non static methods
 int loopFunc(void *loopPID) {
@@ -41,7 +41,7 @@ int loopFunc(void *loopPID) {
   return 1;
 }
 
-int tuningChoice = 0;
+int tuningChoice = 300;
 
 const int kPchoice = 0;
 const int kIchoice = 1;
@@ -62,14 +62,14 @@ void resetButton() {
 
 void runTest() {
   testing = true;
-  test_PID.disable();
-  test_PID.reset();
   test_PID.enable();
+  task::sleep(200);
+  test_PID.reset();
   task::sleep(1000);
-  test_PID.desiredValue = 360;
-  task::sleep(2000);
+  test_PID.desiredValue = 2000;
+  task::sleep(3000);
   test_PID.desiredValue = 0;
-  task::sleep(2000);
+  task::sleep(7000);
   test_PID.reset();
   test_PID.disable();
   testing = false;
@@ -78,21 +78,19 @@ void runTest() {
 void disable() { test_PID.disable(); }
 
 int updatePidValues() {
-  double ammountChange =
-      pidTuner.Axis3.value() > 10 ? pidTuner.Axis3.value() / 64 : 0;
+  while (1 == 1) {
+    double ammountChange = (double) pidTuner.Axis3.position() / 100.0;
 
-  switch (tuningChoice % 3) {
-  case kPchoice:
-    test_PID.kP += ammountChange;
-    break;
-  case kIchoice:
-    test_PID.kI += ammountChange;
-    break;
-  case kDchoice:
-    test_PID.kD += ammountChange;
-    break;
+    if (tuningChoice % 3 == kPchoice) {
+      test_PID.kP += ammountChange;
+    } else if (tuningChoice % 3 == kIchoice) {
+      test_PID.kI += ammountChange;
+    } else if (tuningChoice % 3 == kDchoice) {
+      test_PID.kD += ammountChange;
+    }
+
+    task::sleep(100);
   }
-
   return 1;
 }
 
@@ -100,30 +98,25 @@ int updateScreen() {
   while (1 == 1) {
     if (testing) {
       pidTuner.Screen.clearScreen();
-      pidTuner.Screen.setCursor(1, 1);
-      pidTuner.Screen.print("PID Testing");
 
-      pidTuner.Screen.setCursor(2, 1);
+      pidTuner.Screen.setCursor(1, 1);
       pidTuner.Screen.print("Desired Value: ");
       pidTuner.Screen.print(test_PID.desiredValue);
 
-      pidTuner.Screen.setCursor(3, 1);
+      pidTuner.Screen.setCursor(2, 1);
       pidTuner.Screen.print("Error: ");
       pidTuner.Screen.print(test_PID.error);
 
-      pidTuner.Screen.setCursor(4, 1);
+      pidTuner.Screen.setCursor(3, 1);
       pidTuner.Screen.print("Total Error: ");
       pidTuner.Screen.print(test_PID.totalError);
 
-
     } else {
-      
+
       pidTuner.Screen.clearScreen();
-      pidTuner.Screen.setCursor(1, 1);
-      pidTuner.Screen.print("PID Tuning");
 
       // Print data for kP
-      pidTuner.Screen.setCursor(2, 1);
+      pidTuner.Screen.setCursor(1, 1);
       if (tuningChoice % 3 == kPchoice) {
         pidTuner.Screen.print("-> ");
       }
@@ -139,7 +132,7 @@ int updateScreen() {
       pidTuner.Screen.print(test_PID.kI);
 
       // Print data for kD
-      pidTuner.Screen.setCursor(2, 1);
+      pidTuner.Screen.setCursor(3, 1);
       if (tuningChoice % 3 == kDchoice) {
         pidTuner.Screen.print("-> ");
       }
@@ -167,6 +160,7 @@ int main() {
   // Initializing Robot Configuration. DO NOT REMOVE!
   vexcodeInit();
 
+  
   // call the callback setup code
   setupCallbacks(pidTuner);
 
