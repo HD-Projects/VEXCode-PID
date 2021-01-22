@@ -56,11 +56,15 @@ int PID::loop() {
                        : totalError;
 
       // Caculate Motorpower
-      double lateralMotorPower = error * kP + derivative * kD + totalError * kI;
+      double lateralMotorPower = ((double)error * kP + (double)derivative * kD +
+                                 (double)totalError * kI)/12;
 
-      PIDMotor.spin(forward, lateralMotorPower, voltageUnits::volt);
+      PIDMotor.spin(forward, -lateralMotorPower, voltageUnits::volt);
+
+      task::sleep(50);
     }
-    task::sleep(1000);
+    PIDMotor.spin(forward, 0, voltageUnits::volt);
+    task::sleep(100);
   }
   return enabled ? 1 : 0;
 }
