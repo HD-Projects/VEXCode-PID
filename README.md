@@ -2,7 +2,7 @@
 
 This is a object orinted PID loop that can be applied to drivetrains.
 
-# **THIS IS STILL UNTESTED CODE**
+# A slightly modified version of this code has been tested and works.
 
 ## How to use
 
